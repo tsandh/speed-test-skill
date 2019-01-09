@@ -43,10 +43,11 @@ class SpeedTestSkill(MycroftSkill):
         #    dialogs/en-us/hello.world.dialog
         speed = Speedtest()
         server = speed.get_best_server()
+        sponsor = server['sponsor'].replace("&","and") + " in " + server['name'].split(",")[0]
+        self.speak("Hold on while I measure speed against %s." % sponsor, False)
         upload = speed.upload() / 1000000.0
         download = speed.download() / 1000000.0
-        sponsor = server['sponsor'].replace("&","and") + " in " + server['name'].split(",")[0]
-        self.speak("Speed measured by %s. Upload %.2f Megabits Per Second. Download %.2f Megabits Per Second." % (sponsor, upload, download), False)
+        self.speak("Measurement done. Upload %.2f Megabits Per Second. Download %.2f Megabits Per Second." % (upload, download), False)
 
     # The "stop" method defines what Mycroft does when told to stop during
     # the skill's execution. In this case, since the skill's functionality
